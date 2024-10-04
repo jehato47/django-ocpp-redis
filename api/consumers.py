@@ -49,15 +49,16 @@ class OcppConsumer(AsyncWebsocketConsumer):
         call_result_obj.save()
 
     async def connect(self):
-        # Getting the charger ID from the URL that the charger 
-        # visited
-        self.charger_id = self.scope['url_route']['kwargs']['charger_id']
-        self.charger_group = f'ocpp_{self.charger_id}'
+        print("connect worked")
+        # Getting the company ID and charge point ID from the URL
+        self.company_id = self.scope['url_route']['kwargs']['company_id']
+        self.charge_point_id = self.scope['url_route']['kwargs']['charge_point_id']
+        self.charger_group = f'ocpp_{self.company_id}_{self.charge_point_id}'
 
-        # Logging the visit
-        logger.info(f"Charger with ID '{self.charger_id}' connected")
+        # Logging the connection
+        logger.info(f"Charger with company ID '{self.company_id}' and charge point ID '{self.charge_point_id}' connected")
 
-        # Making this charger join the room group
+        # Joining the room group
         await self.channel_layer.group_add(
             self.charger_group,
             self.channel_name
@@ -67,8 +68,8 @@ class OcppConsumer(AsyncWebsocketConsumer):
         await self.accept()
 
     async def disconnect(self, close_code):
-        # Logging the exit
-        logger.info(f"Charger with ID '{self.charger_id}' disconnected")
+        # Logging the disconnection
+        logger.info(f"Charger with company ID '{self.company_id}' and charge point ID '{self.charge_point_id}' disconnected")
 
         # Leave room group
         await self.channel_layer.group_discard(

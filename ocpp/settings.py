@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = "_yi)@6e8nr!jv+xn^bk^f57ydv$&i()drx2g!qn1_t@i71f8r&"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -31,8 +31,7 @@ ALLOWED_HOSTS = [
     # An automatic way to have your public IP added to the allowed hosts
     # of the django project
     # requests.get('https://api.ipify.org').text,
-
-    '192.168.100.36'
+    "*"
 ]
 
 
